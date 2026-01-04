@@ -40,7 +40,6 @@
 
 - [技术栈](#技术栈)
 - [部署](#部署)
-- [Docker Compose 最佳实践](#Docker-Compose-最佳实践)
 - [环境变量](#环境变量)
 - [配置说明](#配置说明)
 - [管理员配置](#管理员配置)
@@ -124,43 +123,6 @@
 3. 返回你的 pages 项目，进入 **设置 -> 绑定**，添加绑定 D1 数据库，选择你刚创建的数据库，变量名称填 **DB**
 4. 设置环境变量 NEXT_PUBLIC_STORAGE_TYPE，值为 **d1**；设置 USERNAME 和 PASSWORD 作为站长账号
 5. 重试部署
-
-### Docker 部署
-
-#### 1. 直接运行（最简单，localstorage）
-
-```bash
-# 拉取预构建镜像
-docker pull ghcr.io/m-longggg/sun:sha-e316ee3
-
-# 运行容器
-# -d: 后台运行  -p: 映射端口 3000 -> 3000
-docker run -d --name moontv -p 3000:3000 --env PASSWORD=your_password ghcr.io/m-longggg/sun:sha-e316ee3
-```
-
-访问 `http://服务器 IP:3000` 即可。（需自行到服务器控制台放通 `3000` 端口）
-
-## Docker Compose 最佳实践
-
-若你使用 docker compose 部署，以下是一些 compose 示例
-
-### local storage 版本
-
-```yaml
-services:
-  moontv:
-    image: ghcr.io/m-longggg/sun:sha-e316ee3
-    container_name: moontv
-    restart: unless-stopped
-    ports:
-      - '3000:3000'
-    environment:
-      - PASSWORD=your_password
-    # 如需自定义配置，可挂载文件
-    # volumes:
-    #   - ./config.json:/app/config.json:ro
-```
-
 
 
 ## 自动同步最近更改
